@@ -8,7 +8,7 @@ using namespace std;
 
 void task1() {
     string text;
-    cout << "Введіть рядок: ";
+    cout << "Enter string: ";
     cin.ignore();
     getline(cin, text);
 
@@ -20,7 +20,7 @@ void task1() {
     char maxChar = '\0';
     int maxCount = 0;
 
-    cout << "Символи та їх кількість:\n";
+    cout << "Character counts:\n";
     for (auto const& p : charCount) {
         cout << p.first << ": " << p.second << "\n";
         if (p.second > maxCount) {
@@ -30,7 +30,7 @@ void task1() {
     }
 
     if (maxCount > 0) {
-        cout << "Найчастіше зустрічається: '" << maxChar << "' (" << maxCount << " разів)\n";
+        cout << "Most frequent: '" << maxChar << "' (" << maxCount << " times)\n";
     }
 }
 
@@ -41,33 +41,33 @@ void task2() {
     int qty;
 
     while (true) {
-        cout << "\n1. Додати/Змінити товар\n2. Видалити товар\n3. Знайти товар\n4. Вивести всі\n0. Назад\nВибір: ";
+        cout << "\n1. Add/Update item\n2. Delete item\n3. Find item\n4. Show all\n0. Back\nChoice: ";
         cin >> choice;
 
         if (choice == 0) break;
         
         if (choice == 1) {
-            cout << "Назва товару: ";
+            cout << "Item name: ";
             cin >> name;
-            cout << "Кількість: ";
+            cout << "Quantity: ";
             cin >> qty;
             warehouse[name] = qty;
         } else if (choice == 2) {
-            cout << "Назва товару для видалення: ";
+            cout << "Item name to delete: ";
             cin >> name;
             warehouse.erase(name);
         } else if (choice == 3) {
-            cout << "Назва товару для пошуку: ";
+            cout << "Item name to find: ";
             cin >> name;
             if (warehouse.find(name) != warehouse.end()) {
-                cout << "Кількість: " << warehouse[name] << "\n";
+                cout << "Quantity: " << warehouse[name] << "\n";
             } else {
-                cout << "Товар не знайдено\n";
+                cout << "Item not found\n";
             }
         } else if (choice == 4) {
-            cout << "Список товарів:\n";
+            cout << "Warehouse items:\n";
             for (auto const& p : warehouse) {
-                cout << p.first << " - " << p.second << " шт.\n";
+                cout << p.first << " - " << p.second << " pcs\n";
             }
         }
     }
@@ -88,23 +88,23 @@ void task3() {
     int choice;
 
     while (true) {
-        cout << "\n1. Додати студента\n2. Видалити за ПІБ\n3. Сортувати за балом\n4. Пошук за групою\n5. Вивести з балом вище заданого\n0. Назад\nВибір: ";
+        cout << "\n1. Add student\n2. Delete by name\n3. Sort by grade\n4. Search by group\n5. Filter by min grade\n0. Back\nChoice: ";
         cin >> choice;
 
         if (choice == 0) break;
 
         if (choice == 1) {
             Student s;
-            cout << "ПІБ: ";
+            cout << "Name: ";
             cin >> s.name;
-            cout << "Група: ";
+            cout << "Group: ";
             cin >> s.group;
-            cout << "Середній бал: ";
+            cout << "Average grade: ";
             cin >> s.avgGrade;
             students.push_back(s);
         } else if (choice == 2) {
             string targetName;
-            cout << "ПІБ для видалення: ";
+            cout << "Name to delete: ";
             cin >> targetName;
             vector<Student> temp;
             for (size_t i = 0; i < students.size(); i++) {
@@ -115,23 +115,23 @@ void task3() {
             students = temp;
         } else if (choice == 3) {
             sort(students.begin(), students.end(), compareStudents);
-            cout << "Відсортовано.\n";
+            cout << "Sorted.\n";
         } else if (choice == 4) {
             int targetGroup;
-            cout << "Група для пошуку: ";
+            cout << "Group to search: ";
             cin >> targetGroup;
             for (size_t i = 0; i < students.size(); i++) {
                 if (students[i].group == targetGroup) {
-                    cout << students[i].name << " (Бал: " << students[i].avgGrade << ")\n";
+                    cout << students[i].name << " (Grade: " << students[i].avgGrade << ")\n";
                 }
             }
         } else if (choice == 5) {
             double minGrade;
-            cout << "Мінімальний бал: ";
+            cout << "Minimum grade: ";
             cin >> minGrade;
             for (size_t i = 0; i < students.size(); i++) {
                 if (students[i].avgGrade > minGrade) {
-                    cout << students[i].name << " (Група: " << students[i].group << ", Бал: " << students[i].avgGrade << ")\n";
+                    cout << students[i].name << " (Group: " << students[i].group << ", Grade: " << students[i].avgGrade << ")\n";
                 }
             }
         }
@@ -142,42 +142,42 @@ void task4() {
     multimap<int, string> wordsMap;
     string word;
     
-    cout << "Введіть слова (введіть END для завершення):\n";
+    cout << "Enter words (END to stop):\n";
     while (cin >> word && word != "END") {
         wordsMap.insert({word.length(), word});
     }
 
-    cout << "\nЗгруповані слова:\n";
+    cout << "\nGrouped words:\n";
     int currentLen = -1;
     int count = 0;
     
     for (auto it = wordsMap.begin(); it != wordsMap.end(); ++it) {
         if (it->first != currentLen) {
             if (currentLen != -1) {
-                cout << "Кількість слів: " << count << "\n\n";
+                cout << "Total words: " << count << "\n\n";
             }
             currentLen = it->first;
             count = 0;
-            cout << "Довжина " << currentLen << ":\n";
+            cout << "Length " << currentLen << ":\n";
         }
         cout << "- " << it->second << "\n";
         count++;
     }
     if (currentLen != -1) {
-        cout << "Кількість слів: " << count << "\n";
+        cout << "Total words: " << count << "\n";
     }
 }
 
 int main() {
     int choice;
     while (true) {
-        cout << "\n--- ЛАБОРАТОРНА РОБОТА 14 (ВАРІАНТ 1) ---\n";
-        cout << "1. Завдання 1 (map: символи)\n";
-        cout << "2. Завдання 2 (map: склад товарів)\n";
-        cout << "3. Завдання 3 (vector: студенти)\n";
-        cout << "4. Завдання 4 (multimap: довжина слів)\n";
-        cout << "0. Вихід\n";
-        cout << "Вибір: ";
+        cout << "\n--- LAB 14 (VAR 1) MENU ---\n";
+        cout << "1. Task 1 (map chars)\n";
+        cout << "2. Task 2 (map warehouse)\n";
+        cout << "3. Task 3 (vector students)\n";
+        cout << "4. Task 4 (multimap word lengths)\n";
+        cout << "0. Exit\n";
+        cout << "Choice: ";
         cin >> choice;
 
         if (choice == 0) break;
